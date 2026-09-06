@@ -29,10 +29,24 @@
             <a href="/contact.html" class="btn btn-primary">Start Your Website Project</a>
           </div>
         </div>
-        <div class="device-stage" aria-hidden="true">
-          <div class="device desktop"><div class="device-screen"><div class="mock-bar"><span></span><span></span><span></span></div><div class="mock-nav"><i></i><i></i><i></i></div><div class="mock-hero"><i></i><i></i><b><i></i><i></i><i></i></b></div></div></div>
-          <div class="device tablet"><div class="device-screen"><div class="mock-nav"><i></i><i></i><i></i></div><div class="mock-hero"><i></i><i></i><b><i></i><i></i></b></div></div></div>
-          <div class="device mobile"><div class="device-screen"><div class="mock-nav"><i></i><i></i></div><div class="mock-hero"><i></i><i></i><b><i></i></b></div></div></div>
+        <div class="device-stage" aria-label="Responsive web development across desktop, tablet, and mobile">
+          <div class="device desktop">
+            <div class="device-screen">
+              <div class="mock-bar"><span></span><span></span><span></span></div>
+              <img class="device-img" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80" alt="Desktop responsive web platform preview" loading="eager">
+            </div>
+          </div>
+          <div class="device tablet">
+            <div class="device-screen">
+              <div class="mock-bar"><span></span><span></span><span></span></div>
+              <img class="device-img" src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="Tablet responsive web platform preview" loading="eager">
+            </div>
+          </div>
+          <div class="device mobile">
+            <div class="device-screen">
+              <img class="device-img" src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=600&q=80" alt="Mobile responsive interface preview" loading="eager">
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -83,9 +97,24 @@
             <h3>Device-testing proof</h3>
             <p>Every build is checked side by side at mobile, tablet, and desktop widths — the same way the hero mockup above shows it — before we hand it over.</p>
             <div class="grid grid-3" style="gap:0.75rem;margin-top:1rem;">
-              <div class="service-visual" style="aspect-ratio:9/16;"><div class="mock-hero" style="width:85%;height:80%;background:var(--white);border-radius:6px;"><i></i></div></div>
-              <div class="service-visual" style="aspect-ratio:3/4;"><div class="mock-hero" style="width:85%;height:80%;background:var(--white);border-radius:6px;"><i></i><i></i></div></div>
-              <div class="service-visual" style="aspect-ratio:4/3;"><div class="mock-hero" style="width:85%;height:80%;background:var(--white);border-radius:6px;"><i></i><i></i><i></i></div></div>
+              <div class="service-visual proof-visual" style="aspect-ratio:9/16;" aria-label="Mobile viewport testing">
+                <div class="media-container">
+                  <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80" alt="Mobile device viewport verification" loading="lazy">
+                  <span class="proof-label">375px Mobile</span>
+                </div>
+              </div>
+              <div class="service-visual proof-visual" style="aspect-ratio:3/4;" aria-label="Tablet viewport testing">
+                <div class="media-container">
+                  <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=800&q=80" alt="Tablet device viewport verification" loading="lazy">
+                  <span class="proof-label">768px Tablet</span>
+                </div>
+              </div>
+              <div class="service-visual proof-visual" style="aspect-ratio:4/3;" aria-label="Desktop viewport testing">
+                <div class="media-container">
+                  <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1000&q=80" alt="Desktop workstation viewport verification" loading="lazy">
+                  <span class="proof-label">1440px Desktop</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -99,12 +128,18 @@
           <h2>See it in practice</h2>
         </div>
         <div class="grid grid-2">
-          <article class="card portfolio-card reveal">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-case-id="calder-vale">
+            <div class="portfolio-thumb portfolio-thumb--ocean" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Calder &amp; Vale Law partner office" loading="lazy">
+              <div class="thumb-glass-badge">Legal &bull; Build</div>
+            </div>
             <div class="portfolio-body"><div class="portfolio-tags"><span class="badge">Development</span></div><h3>Calder &amp; Vale Law</h3><p class="portfolio-result">100/100 mobile Lighthouse score</p></div>
           </article>
-          <article class="card portfolio-card reveal">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-case-id="almeida-studio">
+            <div class="portfolio-thumb portfolio-thumb--ocean" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Almeida Studio interior architectural project" loading="lazy">
+              <div class="thumb-glass-badge">Design &bull; Fluid Grid</div>
+            </div>
             <div class="portfolio-body"><div class="portfolio-tags"><span class="badge">Development</span></div><h3>Almeida Studio</h3><p class="portfolio-result">Launched across 3 device breakpoints in 5 weeks</p></div>
           </article>
         </div>

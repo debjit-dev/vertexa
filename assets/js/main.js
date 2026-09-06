@@ -161,6 +161,7 @@
               <span class="logo-mark" aria-hidden="true">V</span>
               <span>Vertexa<small>Digital Agency</small></span>
             </a>
+            <p class="tagline-sub" style="color:var(--teal);font-weight:600;font-size:0.85rem;margin-top:0.35rem;margin-bottom:0.6rem;">"Building Digital Experiences That Scale."</p>
             <p>We design, build, revamp, and host websites that work perfectly on every screen &mdash; and are built to grow with your business.</p>
             <div class="social-row">
               <a href="#" aria-label="Vertexa on LinkedIn">in</a>
@@ -187,16 +188,18 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Work</h4>
+            <h4>Work &amp; Legal</h4>
             <ul>
-              <li><a href="/portfolio.html">Portfolio</a></li>
-              <li><a href="/pricing.html">Pricing</a></li>
-              <li><a href="/portfolio.html#testimonials">Testimonials</a></li>
+              <li><a href="/portfolio.html">Portfolio &amp; Case Studies</a></li>
+              <li><a href="/pricing.html">Pricing &amp; Packages</a></li>
+              <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="/terms.html">Terms of Service</a></li>
+              <li><button type="button" class="footer-cookie-btn" id="open-cookie-banner">Cookie Preferences</button></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <span>&copy; ${year} Vertexa Digital Agency. All rights reserved.</span>
+          <span>&copy; ${year} Vertexa Digital Agency. All rights reserved. &bull; Salt Lake Sector V, Kolkata</span>
           <div class="footer-legal">
             <a href="/privacy-policy.html">Privacy Policy</a>
             <a href="/terms.html">Terms of Service</a>
@@ -204,13 +207,20 @@
         </div>
       </div>
     `;
+    const openCookieBtn = document.getElementById("open-cookie-banner");
+    if (openCookieBtn) {
+      openCookieBtn.addEventListener("click", () => {
+        const b = document.getElementById("cookie-banner");
+        if (b) b.classList.add("is-visible");
+      });
+    }
   }
 
   /* ---------------------------------------------------------
      2. SCROLL REVEAL (native IntersectionObserver)
      --------------------------------------------------------- */
   function initReveal() {
-    const items = document.querySelectorAll(".reveal");
+    const items = document.querySelectorAll(".reveal, .reveal-media");
     if (!("IntersectionObserver" in window) || items.length === 0) {
       items.forEach((el) => el.classList.add("is-visible"));
       return;
@@ -224,11 +234,42 @@
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
     items.forEach((el, i) => {
       el.style.transitionDelay = (i % 4) * 70 + "ms";
       io.observe(el);
+    });
+  }
+
+  /* ---------------------------------------------------------
+     2.1 DEVICE PARALLAX (Interactive 3D depth on mousemove)
+     --------------------------------------------------------- */
+  function initDeviceParallax() {
+    const stage = document.querySelector(".device-stage");
+    if (!stage || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    
+    stage.addEventListener("mousemove", (e) => {
+      const rect = stage.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      
+      const desktop = stage.querySelector(".device.desktop");
+      const tablet = stage.querySelector(".device.tablet");
+      const mobile = stage.querySelector(".device.mobile");
+      
+      if (desktop) desktop.style.transform = `translate(${x * 8}px, ${y * 8}px)`;
+      if (tablet) tablet.style.transform = `translate(${x * 16}px, ${y * 16}px) rotate(-0.5deg)`;
+      if (mobile) mobile.style.transform = `translate(${x * 24}px, ${y * 24}px) rotate(0.8deg)`;
+    });
+    
+    stage.addEventListener("mouseleave", () => {
+      const desktop = stage.querySelector(".device.desktop");
+      const tablet = stage.querySelector(".device.tablet");
+      const mobile = stage.querySelector(".device.mobile");
+      if (desktop) desktop.style.transform = "";
+      if (tablet) tablet.style.transform = "";
+      if (mobile) mobile.style.transform = "";
     });
   }
 
@@ -499,18 +540,440 @@
   }
 
   /* ---------------------------------------------------------
+     10. CASE STUDY MODAL DIALOG
+     Displays Challenge -> Solution -> Result for projects
+     --------------------------------------------------------- */
+  const CASE_STUDIES = {
+    "northbridge": {
+      title: "Northbridge Furnishings",
+      client: "Northbridge Furnishings",
+      industry: "E-Commerce & Retail",
+      service: "Website Revamp & SEO",
+      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Revamp", "SEO", "E-Commerce"],
+      challenge: "Their legacy catalog website broke on modern mobile devices, suffered from an unoptimized 4.2MB page weight, and experienced high bounce rates (74%) with declining regional search rankings.",
+      solution: "Engineered a responsive-first redesign using clean HTML5 semantic structure, WebP responsive image sets with lazy loading, automated schema markup, and streamlined conversion paths.",
+      result: "+58% organic traffic within 90 days post-launch, mobile bounce rate reduced to 29%, and Core Web Vitals score elevated to 98/100.",
+      metrics: [
+        { val: "+58%", label: "Organic Search Traffic" },
+        { val: "0.9s", label: "Page Load Speed" },
+        { val: "98/100", label: "Lighthouse Performance" }
+      ]
+    },
+    "calder-vale": {
+      title: "Calder & Vale Law",
+      client: "Calder & Vale Law Partners",
+      industry: "Legal Services",
+      service: "Website Development",
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Development", "Legal", "WCAG 2.1 AA"],
+      challenge: "A fast-growing law firm needed a modern web presence that projected absolute authority and trust, rendered flawlessly across mobile screens, and made client inquiry effortless without bloated third-party plugins.",
+      solution: "Crafted a bespoke, lightweight architecture with fluid clamp() typography, WCAG 2.1 AA accessible color contrast, client inquiry encryption, and zero render-blocking scripts.",
+      result: "Achieved a flawless 100/100 mobile Lighthouse performance rating and generated 3.4x more consultation inquiries within the first 60 days.",
+      metrics: [
+        { val: "100/100", label: "Mobile Lighthouse" },
+        { val: "3.4x", label: "Consultation Inquiries" },
+        { val: "0.8s", label: "First Contentful Paint" }
+      ]
+    },
+    "portside": {
+      title: "Portside Analytics",
+      client: "Portside Analytics",
+      industry: "SaaS & Technology",
+      service: "Scalable Web Development & Hosting",
+      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Scalable Build", "Hosting", "SaaS"],
+      challenge: "Anticipating a major tech press feature, this B2B SaaS startup needed an unshakeable marketing site that would not falter under sudden, unpredictable global traffic surges.",
+      solution: "Engineered a decoupled static frontend backed by multi-region edge CDN caching, instant DNS failover, and automated synthetic uptime monitoring.",
+      result: "Effortlessly absorbed a 12x press-driven traffic spike with 100% uptime and a worldwide average time-to-first-byte (TTFB) of just 45 milliseconds.",
+      metrics: [
+        { val: "12x", label: "Traffic Spike Handled" },
+        { val: "100%", label: "Uptime During Launch" },
+        { val: "45ms", label: "Global Edge TTFB" }
+      ]
+    },
+    "harlow-dental": {
+      title: "Harlow Dental Group",
+      client: "Harlow Dental Group",
+      industry: "Healthcare & Clinics",
+      service: "Website Revamp & SEO",
+      image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Revamp", "Healthcare", "SEO"],
+      challenge: "A multi-clinic practice was bogged down by bloated stock images and uncompressed assets, clocking a painful 4.1s mobile load time that hurt patient appointment bookings.",
+      solution: "Rebuilt the front end with modern asset pipelines, implemented medical/local business schema JSON-LD, and simplified the direct online appointment reservation journey.",
+      result: "Cut load times from 4.1s down to 1.3s and secured top-3 rankings in local Google Map packs for key dental queries, boosting online bookings by 42%.",
+      metrics: [
+        { val: "4.1s → 1.3s", label: "Load Time Reduction" },
+        { val: "Top 3", label: "Google Map Pack" },
+        { val: "+42%", label: "Appointment Inquiries" }
+      ]
+    },
+    "almeida-studio": {
+      title: "Almeida Studio",
+      client: "Almeida Studio Architecture",
+      industry: "Architecture & Design",
+      service: "Website Development",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Development", "Design", "Fluid Grid"],
+      challenge: "An interior design practice required a visually stunning digital portfolio that felt like an editorial magazine on retina displays without lagging on handheld phones.",
+      solution: "Developed an adaptive layout with fluid CSS Grid, hardware-accelerated transitions, responsive image sets, and intuitive touch gestures.",
+      result: "Shipped the complete site from discovery to launch in just 5 weeks; visitor average session duration increased by 68%.",
+      metrics: [
+        { val: "5 Weeks", label: "Delivery Timeline" },
+        { val: "+68%", label: "Avg Session Duration" },
+        { val: "100%", label: "Fluid Across Screens" }
+      ]
+    },
+    "ferro-co": {
+      title: "Ferro & Co. Logistics",
+      client: "Ferro & Co. Logistics",
+      industry: "B2B Logistics",
+      service: "Scalable Web Development",
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Scalable Build", "Logistics", "Modular"],
+      challenge: "A regional B2B freight provider needed to expand from 8 basic pages to over 60 localized logistics hub pages without rewriting code or introducing maintenance chaos.",
+      solution: "Created a component-based modular template architecture with reusable layout partials and design tokens.",
+      result: "Successfully scaled to 60+ localized landing pages with zero performance degradation and uniform brand consistency across every route.",
+      metrics: [
+        { val: "8 → 60+", label: "Pages Scaled" },
+        { val: "< 1.0s", label: "Average Page Load" },
+        { val: "0", label: "Ground-up Rebuilds" }
+      ]
+    },
+    "meridian-travel": {
+      title: "Meridian Travel Co.",
+      client: "Meridian Travel Co.",
+      industry: "Hospitality & Travel",
+      service: "Hosting Solutions",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Hosting", "Hospitality", "Global CDN"],
+      challenge: "International travel shoppers across the Americas, Europe, and Asia suffered frequent booking checkout latency and slow page renders during peak vacation booking seasons.",
+      solution: "Migrated their infrastructure to a high-speed global edge network with HTTP/3, Brotli compression, automated SSL, and 24/7 endpoint health checks.",
+      result: "Sub-second response times achieved across four continents, ensuring continuous 99.99% booking availability throughout peak season.",
+      metrics: [
+        { val: "< 1s", label: "Across 4 Continents" },
+        { val: "99.99%", label: "Observed Uptime" },
+        { val: "100%", label: "Automated Edge SSL" }
+      ]
+    },
+    "sable-finch": {
+      title: "Sable & Finch Café",
+      client: "Sable & Finch Artisan Café",
+      industry: "Food & Hospitality",
+      service: "Website Development & Revamp",
+      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
+      tags: ["Development", "Revamp", "Mobile First"],
+      challenge: "Customers commuting to work were forced to download a 6MB PDF to view the breakfast menu on their phones, causing lost orders and frustration during rush hours.",
+      solution: "Built a tap-friendly, lightning-fast mobile menu with daily rotating specials, one-tap directions, and direct click-to-call ordering.",
+      result: "Mobile bounce rate dropped by 34%, while morning takeaway telephone orders jumped by 47% in the first four weeks.",
+      metrics: [
+        { val: "-34%", label: "Bounce Rate Reduction" },
+        { val: "+47%", label: "Phone Orders Surge" },
+        { val: "0.6s", label: "Menu Screen Load" }
+      ]
+    }
+  };
+
+  function initCaseStudyModal() {
+    // Check if modal already exists or inject
+    let overlay = document.getElementById("case-study-modal");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.id = "case-study-modal";
+      overlay.className = "modal-overlay";
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.innerHTML = `
+        <div class="modal-dialog" id="modal-dialog-content">
+          <button class="modal-close" aria-label="Close case study">&times;</button>
+          <div id="modal-inner"></div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    const closeBtn = overlay.querySelector(".modal-close");
+    let lastActiveElement = null;
+
+    function openModal(id) {
+      const data = CASE_STUDIES[id];
+      if (!data) return;
+      lastActiveElement = document.activeElement;
+
+      const inner = overlay.querySelector("#modal-inner");
+      const tagsHtml = data.tags.map(t => `<span class="badge">${t}</span>`).join(" ");
+      const metricsHtml = data.metrics.map(m => `
+        <div>
+          <strong>${m.val}</strong>
+          <span>${m.label}</span>
+        </div>
+      `).join("");
+
+      inner.innerHTML = `
+        <div class="modal-hero-image">
+          <img src="${data.image}" alt="${data.title}" loading="lazy">
+          <div class="modal-hero-badge">${data.industry}</div>
+        </div>
+        <div class="modal-header">
+          <div class="modal-tag-row">${tagsHtml}</div>
+          <h2>${data.title}</h2>
+          <div class="modal-meta">
+            <span><strong>Client:</strong> ${data.client}</span>
+            <span><strong>Industry:</strong> ${data.industry}</span>
+            <span><strong>Service:</strong> ${data.service}</span>
+          </div>
+        </div>
+
+        <div class="modal-metrics">${metricsHtml}</div>
+
+        <div class="modal-narrative">
+          <div class="modal-card">
+            <h4>01. Challenge</h4>
+            <p>${data.challenge}</p>
+          </div>
+          <div class="modal-card">
+            <h4>02. Vertexa Solution</h4>
+            <p>${data.solution}</p>
+          </div>
+          <div class="modal-card">
+            <h4>03. Measurable Result</h4>
+            <p>${data.result}</p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline close-modal-action">Close Window</button>
+          <a href="/contact.html?service=${encodeURIComponent(data.service)}" class="btn btn-primary">Start a Similar Project &rarr;</a>
+        </div>
+      `;
+
+      overlay.classList.add("is-active");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      closeBtn.focus();
+
+      inner.querySelector(".close-modal-action").addEventListener("click", closeModal);
+    }
+
+    function closeModal() {
+      overlay.classList.remove("is-active");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastActiveElement) lastActiveElement.focus();
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.classList.contains("is-active")) {
+        closeModal();
+      }
+    });
+
+    // Attach click listeners to cards with data-case-id
+    document.querySelectorAll("[data-case-id]").forEach(card => {
+      card.addEventListener("click", (e) => {
+        // don't trigger if clicked a link inside
+        if (e.target.closest("a") && !e.target.closest(".portfolio-thumb")) return;
+        const id = card.getAttribute("data-case-id");
+        openModal(id);
+      });
+      // Allow enter key activation
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-haspopup", "dialog");
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(card.getAttribute("data-case-id"));
+        }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     11. COOKIE CONSENT BANNER
+     --------------------------------------------------------- */
+  function initCookieBanner() {
+    const consent = localStorage.getItem("vx-cookie-consent");
+    let banner = document.getElementById("cookie-banner");
+    if (!banner) {
+      banner = document.createElement("div");
+      banner.id = "cookie-banner";
+      banner.className = "cookie-banner";
+      banner.setAttribute("role", "region");
+      banner.setAttribute("aria-label", "Cookie Consent");
+      banner.innerHTML = `
+        <div>
+          <h4>Privacy &amp; Cookie Preferences</h4>
+          <p>We use lightweight, non-tracking cookies to remember your display preferences and guarantee lightning-fast performance across devices. No surveillance or third-party ad networks.</p>
+        </div>
+        <div class="cookie-actions">
+          <button type="button" class="cookie-btn-accept" id="cookie-accept">Accept All</button>
+          <button type="button" class="cookie-btn-decline" id="cookie-decline">Essential Only</button>
+          <a href="/privacy-policy.html" style="color:var(--teal);font-size:0.84rem;text-decoration:underline;margin-left:auto;">Learn more</a>
+        </div>
+      `;
+      document.body.appendChild(banner);
+    }
+
+    function saveChoice(type) {
+      localStorage.setItem("vx-cookie-consent", type);
+      banner.classList.remove("is-visible");
+    }
+
+    document.getElementById("cookie-accept")?.addEventListener("click", () => saveChoice("all"));
+    document.getElementById("cookie-decline")?.addEventListener("click", () => saveChoice("essential"));
+
+    if (!consent) {
+      setTimeout(() => banner.classList.add("is-visible"), 1000);
+    }
+  }
+
+  /* ---------------------------------------------------------
+     12. DISCOVERY CALL SLOT SELECTOR (Contact Page)
+     --------------------------------------------------------- */
+  function initBookingSlots() {
+    const slots = document.querySelectorAll(".slot-btn");
+    const subjectInput = document.getElementById("c-subject");
+    const messageInput = document.getElementById("c-message");
+
+    slots.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const wasSelected = btn.classList.contains("is-selected");
+        slots.forEach(s => s.classList.remove("is-selected"));
+        if (!wasSelected) {
+          btn.classList.add("is-selected");
+          const slotTime = btn.getAttribute("data-slot") || btn.textContent.trim();
+          if (subjectInput && !subjectInput.value.includes("Discovery Call")) {
+            subjectInput.value = `Discovery Call Request: ${slotTime}`;
+          }
+          if (messageInput && !messageInput.value.includes("Preferred Slot:")) {
+            messageInput.value = (messageInput.value ? messageInput.value + "\n\n" : "") + `Preferred Slot: ${slotTime}`;
+          }
+        }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     13. SHOWCASE SLIDESHOW (Featured Work Slider)
+     --------------------------------------------------------- */
+  function initShowcaseSlider() {
+    const slider = document.querySelector(".showcase-slider");
+    if (!slider) return;
+    const track = slider.querySelector(".showcase-track");
+    const slides = Array.from(slider.querySelectorAll(".showcase-slide"));
+    const prevBtn = slider.querySelector(".showcase-prev");
+    const nextBtn = slider.querySelector(".showcase-next");
+    const dotsContainer = slider.querySelector(".showcase-dots");
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let autoTimer = null;
+
+    dotsContainer.innerHTML = "";
+    slides.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.className = "showcase-dot" + (i === 0 ? " is-active" : "");
+      dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      dot.addEventListener("click", () => {
+        goToSlide(i);
+        restartAuto();
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = Array.from(dotsContainer.querySelectorAll(".showcase-dot"));
+
+    function goToSlide(index) {
+      currentIndex = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((d, di) => {
+        d.classList.toggle("is-active", di === currentIndex);
+      });
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        restartAuto();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        restartAuto();
+      });
+    }
+
+    function startAuto() {
+      autoTimer = setInterval(nextSlide, 5000);
+    }
+
+    function stopAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+    }
+
+    function restartAuto() {
+      stopAuto();
+      startAuto();
+    }
+
+    slider.addEventListener("mouseenter", stopAuto);
+    slider.addEventListener("mouseleave", startAuto);
+    slider.addEventListener("focusin", stopAuto);
+    slider.addEventListener("focusout", startAuto);
+
+    let touchStartX = 0;
+    slider.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    slider.addEventListener("touchend", (e) => {
+      const diffX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(diffX) > 45) {
+        if (diffX < 0) nextSlide();
+        else prevSlide();
+        restartAuto();
+      }
+    }, { passive: true });
+
+    goToSlide(0);
+    startAuto();
+  }
+
+  /* ---------------------------------------------------------
      INIT
      --------------------------------------------------------- */
   document.addEventListener("DOMContentLoaded", () => {
     renderHeader();
     renderFooter();
     initReveal();
+    initDeviceParallax();
     initCarousel();
     initPortfolioFilter();
+    initCaseStudyModal();
     initFaq();
     initForms();
     initScrollTop();
     initCounters();
     initTheme();
+    initCookieBanner();
+    initBookingSlots();
+    initShowcaseSlider();
   });
 })();
+
+

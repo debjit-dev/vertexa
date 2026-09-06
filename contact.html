@@ -78,18 +78,63 @@
         <div class="reveal">
           <div class="card" style="margin-bottom:1.5rem;">
             <h3>Direct details</h3>
-            <p style="margin-bottom:0.4rem;"><strong style="color:var(--navy);">Email:</strong> hello@vertexa.agency</p>
-            <p style="margin-bottom:0.4rem;"><strong style="color:var(--navy);">Phone:</strong> +91 33 4000 1122</p>
-            <p style="margin-bottom:0;"><strong style="color:var(--navy);">Office:</strong> Salt Lake Sector V, Kolkata, West Bengal, India</p>
+            <p style="margin-bottom:0.4rem;"><strong style="color:var(--navy);">Email:</strong> <a href="mailto:hello@vertexa.agency" style="color:var(--blue);">hello@vertexa.agency</a></p>
+            <p style="margin-bottom:0.4rem;"><strong style="color:var(--navy);">Phone:</strong> <a href="tel:+913340001122" style="color:var(--navy);">+91 33 4000 1122</a></p>
+            <p style="margin-bottom:0.8rem;"><strong style="color:var(--navy);">Office:</strong> Salt Lake Sector V, Kolkata, West Bengal 700091, India</p>
+            <p style="margin-bottom:0;font-size:0.85rem;color:var(--grey);"><strong style="color:var(--navy);">Hours:</strong> Mon – Fri: 9:30 AM – 6:30 PM IST (Global asynchronous support 24/7)</p>
           </div>
-          <div class="card">
-            <h3>Prefer to book a call?</h3>
-            <p>Use the form to request a slot and we'll send a calendar invite with a link for a 20-minute discovery call.</p>
-            <div class="social-row" style="margin-top:0.5rem;">
+
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h3>Instant Discovery Booking</h3>
+            <p style="font-size:0.9rem;margin-bottom:0.6rem;">Select a preferred 20-minute video intro slot to pre-fill your inquiry:</p>
+            <div class="booking-slots">
+              <button type="button" class="slot-btn" data-slot="Tomorrow 11:00 AM IST">Tomorrow 11:00 AM</button>
+              <button type="button" class="slot-btn" data-slot="Tomorrow 3:30 PM IST">Tomorrow 3:30 PM</button>
+              <button type="button" class="slot-btn" data-slot="Thu 10:00 AM IST">Thu 10:00 AM</button>
+              <button type="button" class="slot-btn" data-slot="Thu 4:00 PM IST">Thu 4:00 PM</button>
+            </div>
+            <p style="font-size:0.82rem;color:var(--grey);margin-bottom:0.8rem;">We'll confirm with a Google Meet or Zoom invite upon submission.</p>
+            <div class="social-row">
               <a href="#" aria-label="Vertexa on LinkedIn" style="border-color:var(--line);color:var(--navy);">in</a>
               <a href="#" aria-label="Vertexa on X" style="border-color:var(--line);color:var(--navy);">X</a>
               <a href="#" aria-label="Vertexa on Instagram" style="border-color:var(--line);color:var(--navy);">IG</a>
             </div>
+          </div>
+
+          <!-- Embedded Styled Vector Map -->
+          <div class="vector-map-wrap">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+              <h4 style="margin:0;color:var(--white);font-size:0.95rem;">Location &amp; Tech Hub</h4>
+              <span style="font-size:0.75rem;color:var(--teal);font-weight:700;">22.5804° N, 88.4378° E</span>
+            </div>
+            <div class="vector-map-canvas" aria-label="Map showing Vertexa office in Salt Lake Sector V, Kolkata">
+              <svg viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <!-- Grid roads -->
+                <line x1="0" y1="50" x2="400" y2="50" stroke="#1E385B" stroke-width="2"/>
+                <line x1="0" y1="100" x2="400" y2="100" stroke="#254B7A" stroke-width="4"/>
+                <line x1="0" y1="150" x2="400" y2="150" stroke="#1E385B" stroke-width="2"/>
+                <line x1="80" y1="0" x2="80" y2="200" stroke="#1E385B" stroke-width="2"/>
+                <line x1="220" y1="0" x2="220" y2="200" stroke="#254B7A" stroke-width="4"/>
+                <line x1="330" y1="0" x2="330" y2="200" stroke="#1E385B" stroke-width="2"/>
+                <!-- Sector blocks -->
+                <rect x="90" y="60" width="120" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
+                <rect x="230" y="60" width="90" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
+                <rect x="90" y="110" width="120" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
+                <rect x="230" y="110" width="90" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
+                <!-- Lake contour -->
+                <path d="M0 160 Q120 180 200 150 T400 170 L400 200 L0 200 Z" fill="#0C2545" opacity="0.7"/>
+              </svg>
+              <div class="map-pin">
+                <span class="pin-beacon"></span>
+                <span class="pin-label">Vertexa Digital HQ</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#2FB6A6" stroke="#0B1F3A" stroke-width="1.5">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+              </div>
+            </div>
+            <p style="margin:0.75rem 0 0;font-size:0.8rem;color:#B9C4D4;line-height:1.4;">
+              5 mins from Karunamoyee Metro &bull; Sector V Electronics Complex
+            </p>
           </div>
         </div>
 

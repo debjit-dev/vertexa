@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "Vertexa Digital Agency",
+    "tagline": "Building Digital Experiences That Scale.",
+    "heroHeadline": "Websites Built to Perform — On Every Screen, Everywhere.",
+    "tone": "Confident, clear, technical-but-plain-spoken (no hype). Lead with client benefits (speed, visibility, reliability)."
+  },
+  "colors": {
+    "primaryNavy": {
+      "hex": "#0B1F3A",
+      "role": "Headers, navbar background, footer, primary text emphasis"
+    },
+    "secondarySignalBlue": {
+      "hex": "#1E5FA8",
+      "role": "Links, secondary buttons, icons, secondary gradients"
+    },
+    "accentTeal": {
+      "hex": "#2FB6A6",
+      "hover": "#23907F",
+      "light": "#D4F5F1",
+      "role": "CTAs, highlights, hover states, badges"
+    },
+    "neutralOffWhite": {
+      "hex": "#F2F5F8",
+      "role": "Alternating section backgrounds, card backgrounds in dark mode"
+    },
+    "ink": {
+      "hex": "#1B2430",
+      "role": "Body typography"
+    },
+    "white": {
+      "hex": "#FFFFFF",
+      "role": "Card surfaces, contrast text"
+    }
+  },
+  "typography": {
+    "headings": {
+      "family": "Sora, 'Segoe UI', Arial, sans-serif",
+      "weights": [600, 700, 800],
+      "style": "Modern geometric sans-serif"
+    },
+    "body": {
+      "family": "Inter, 'Segoe UI', Arial, sans-serif",
+      "weights": [400, 500, 600, 700],
+      "style": "High-legibility sans-serif"
+    }
+  },
+  "iconography": {
+    "style": "Line-style",
+    "strokeWidth": "2px",
+    "joins": "round",
+    "caps": "round",
+    "hoverEffect": "Accent Teal transition with smooth 200ms cubic-bezier curve"
+  },
+  "breakpoints": {
+    "mobile": "320px - 767px",
+    "tablet": "768px - 1023px",
+    "desktop": "1024px+"
+  },
+  "navigation": {
+    "desktopHeight": "80px",
+    "scrolledHeight": "60px",
+    "scrolledBg": "#0B1F3A"
+  }
+}

@@ -31,92 +31,121 @@
       <div class="container">
 
         <div class="filter-bar" data-filter-bar role="group" aria-label="Filter portfolio by service">
-          <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-btn" data-filter="all" aria-pressed="true">All Services</button>
           <button class="filter-btn" data-filter="development" aria-pressed="false">Development</button>
-          <button class="filter-btn" data-filter="revamp" aria-pressed="false">Revamp</button>
+          <button class="filter-btn" data-filter="revamp" aria-pressed="false">Revamp &amp; SEO</button>
           <button class="filter-btn" data-filter="scalable" aria-pressed="false">Scalable Apps</button>
           <button class="filter-btn" data-filter="hosting" aria-pressed="false">Hosting</button>
         </div>
 
+        <p style="font-size:0.88rem;color:var(--teal-dark);margin:1.2rem 0 1.8rem;font-weight:600;display:flex;align-items:center;gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Click any case study card below to view the Challenge &rarr; Solution &rarr; Result breakdown and verified metrics.
+        </p>
+
         <div class="grid grid-3">
 
-          <article class="card portfolio-card reveal" data-filter-card="revamp">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="revamp e-commerce" data-case-id="northbridge">
+            <div class="portfolio-thumb portfolio-thumb--terra" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Northbridge Furnishings showroom and e-commerce catalog" loading="lazy">
+              <div class="thumb-glass-badge">Retail &bull; Revamp</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Revamp</span><span class="badge">SEO</span></div>
+              <div class="portfolio-tags"><span class="badge">Revamp</span><span class="badge">SEO</span><span class="badge">Retail</span></div>
               <h3>Northbridge Furnishings</h3>
               <p>A dated, non-responsive site rebuilt with a fresh design and full SEO foundation.</p>
-              <p class="portfolio-result">+58% organic traffic in 90 days</p>
+              <div class="result-pill">&#8593; +58% organic traffic in 90 days</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="development">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="development legal" data-case-id="calder-vale">
+            <div class="portfolio-thumb portfolio-thumb--ocean" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Calder &amp; Vale Law partner litigation firm" loading="lazy">
+              <div class="thumb-glass-badge">Legal &bull; Development</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Development</span></div>
+              <div class="portfolio-tags"><span class="badge">Development</span><span class="badge">Legal</span></div>
               <h3>Calder &amp; Vale Law</h3>
               <p>A new site for a two-partner law firm, built responsive-first from the ground up.</p>
-              <p class="portfolio-result">100/100 mobile Lighthouse score</p>
+              <div class="result-pill">&#9733; 100/100 mobile Lighthouse score</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="scalable hosting">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="scalable hosting saas" data-case-id="portside">
+            <div class="portfolio-thumb portfolio-thumb--forest" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" alt="Portside Analytics high growth SaaS platform" loading="lazy">
+              <div class="thumb-glass-badge">SaaS &bull; Hosting</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Scalable Build</span><span class="badge">Hosting</span></div>
+              <div class="portfolio-tags"><span class="badge">Scalable Build</span><span class="badge">Hosting</span><span class="badge">SaaS</span></div>
               <h3>Portside Analytics</h3>
               <p>A growing SaaS marketing site built to handle press-driven traffic spikes.</p>
-              <p class="portfolio-result">Handled a 12x traffic spike, zero downtime</p>
+              <div class="result-pill">&#9889; 12x traffic spike, zero downtime</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="revamp">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="revamp healthcare" data-case-id="harlow-dental">
+            <div class="portfolio-thumb portfolio-thumb--terra" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Harlow Dental Group modern clinic" loading="lazy">
+              <div class="thumb-glass-badge">Healthcare &bull; SEO</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Revamp</span></div>
+              <div class="portfolio-tags"><span class="badge">Revamp</span><span class="badge">Healthcare</span></div>
               <h3>Harlow Dental Group</h3>
               <p>Performance-focused revamp of a slow, image-heavy clinic website.</p>
-              <p class="portfolio-result">Page load cut from 4.1s to 1.3s</p>
+              <div class="result-pill">&#8593; Page load cut from 4.1s to 1.3s</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="development">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="development design" data-case-id="almeida-studio">
+            <div class="portfolio-thumb portfolio-thumb--ocean" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Almeida Studio architectural interior design portfolio" loading="lazy">
+              <div class="thumb-glass-badge">Design &bull; Fluid Grid</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Development</span></div>
+              <div class="portfolio-tags"><span class="badge">Development</span><span class="badge">Design</span></div>
               <h3>Almeida Studio</h3>
               <p>A portfolio site for an interior design studio, launched across all device breakpoints.</p>
-              <p class="portfolio-result">Launched in 5 weeks</p>
+              <div class="result-pill">&#9733; Launched in 5 weeks</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="scalable">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="scalable logistics" data-case-id="ferro-co">
+            <div class="portfolio-thumb portfolio-thumb--forest" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Ferro &amp; Co. logistics freight network" loading="lazy">
+              <div class="thumb-glass-badge">Logistics &bull; Scale</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Scalable Build</span></div>
+              <div class="portfolio-tags"><span class="badge">Scalable Build</span><span class="badge">Logistics</span></div>
               <h3>Ferro &amp; Co.</h3>
               <p>A modular codebase that let the client add services and locations without a rebuild.</p>
-              <p class="portfolio-result">Grew from 8 pages to 60+</p>
+              <div class="result-pill">&#8593; Grew from 8 pages to 60+</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="hosting">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="hosting hospitality" data-case-id="meridian-travel">
+            <div class="portfolio-thumb portfolio-thumb--ocean" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Meridian Travel Co. luxury hospitality resort destination" loading="lazy">
+              <div class="thumb-glass-badge">Hospitality &bull; CDN</div>
+            </div>
             <div class="portfolio-body">
-              <div class="portfolio-tags"><span class="badge">Hosting</span></div>
+              <div class="portfolio-tags"><span class="badge">Hosting</span><span class="badge">Hospitality</span></div>
               <h3>Meridian Travel Co.</h3>
               <p>Migrated onto global CDN hosting ahead of a peak booking season.</p>
-              <p class="portfolio-result">Sub-1s load time across 4 continents</p>
+              <div class="result-pill">&#9889; Sub-1s load time across 4 continents</div>
             </div>
           </article>
 
-          <article class="card portfolio-card reveal" data-filter-card="development revamp">
-            <div class="portfolio-thumb" aria-hidden="true"><div class="mock-hero" style="width:100%;height:100%;"><i></i><i></i><b><i></i><i></i></b></div></div>
+          <article class="card portfolio-card reveal" data-filter-card="development revamp hospitality" data-case-id="sable-finch">
+            <div class="portfolio-thumb portfolio-thumb--terra" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Sable &amp; Finch Café specialty coffee shop" loading="lazy">
+              <div class="thumb-glass-badge">Hospitality &bull; Mobile</div>
+            </div>
             <div class="portfolio-body">
               <div class="portfolio-tags"><span class="badge">Development</span><span class="badge">Revamp</span></div>
               <h3>Sable &amp; Finch Café</h3>
               <p>Menu-first redesign built for quick browsing on mobile during peak hours.</p>
-              <p class="portfolio-result">Mobile bounce rate down 34%</p>
+              <div class="result-pill">&#8593; Mobile bounce rate down 34%</div>
             </div>
           </article>
 

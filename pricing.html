@@ -76,32 +76,32 @@
         </div>
 
         <div class="table-wrap reveal" style="margin-top:3rem;">
-          <table class="compare">
+          <table class="compare" aria-label="Package Comparison Table">
             <thead>
-              <tr><th>Feature</th><th>Starter</th><th>Growth</th><th>Enterprise</th></tr>
+              <tr><th scope="col">Feature</th><th scope="col">Starter</th><th scope="col">Growth</th><th scope="col">Enterprise</th></tr>
             </thead>
             <tbody>
-              <tr><td>Responsive design (mobile/tablet/desktop)</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
-              <tr><td>Pages included</td><td>Up to 5</td><td>Up to 12</td><td>Unlimited</td></tr>
-              <tr><td>SEO setup</td><td>Baseline</td><td>Full</td><td>Full + ongoing</td></tr>
-              <tr><td>Site audit (for revamps)</td><td>&mdash;</td><td>&#10003;</td><td>&#10003;</td></tr>
-              <tr><td>CMS integration</td><td>&mdash;</td><td>&#10003;</td><td>&#10003;</td></tr>
-              <tr><td>Global CDN hosting</td><td>Optional add-on</td><td>Optional add-on</td><td>&#10003;</td></tr>
-              <tr><td>Post-launch support</td><td>30 days</td><td>90 days</td><td>Ongoing plan</td></tr>
+              <tr><td data-label="Feature"><strong>Responsive design (mobile/tablet/desktop)</strong></td><td data-label="Starter">&#10003;</td><td data-label="Growth">&#10003;</td><td data-label="Enterprise">&#10003;</td></tr>
+              <tr><td data-label="Feature"><strong>Pages included</strong></td><td data-label="Starter">Up to 5</td><td data-label="Growth">Up to 12</td><td data-label="Enterprise">Unlimited</td></tr>
+              <tr><td data-label="Feature"><strong>SEO setup</strong></td><td data-label="Starter">Baseline</td><td data-label="Growth">Full</td><td data-label="Enterprise">Full + ongoing</td></tr>
+              <tr><td data-label="Feature"><strong>Site audit (for revamps)</strong></td><td data-label="Starter">&mdash;</td><td data-label="Growth">&#10003;</td><td data-label="Enterprise">&#10003;</td></tr>
+              <tr><td data-label="Feature"><strong>CMS integration</strong></td><td data-label="Starter">&mdash;</td><td data-label="Growth">&#10003;</td><td data-label="Enterprise">&#10003;</td></tr>
+              <tr><td data-label="Feature"><strong>Global CDN hosting</strong></td><td data-label="Starter">Optional add-on</td><td data-label="Growth">Optional add-on</td><td data-label="Enterprise">&#10003;</td></tr>
+              <tr><td data-label="Feature"><strong>Post-launch support</strong></td><td data-label="Starter">30 days</td><td data-label="Growth">90 days</td><td data-label="Enterprise">Ongoing plan</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section section-alt" id="quote-form-section">
       <div class="container two-col">
         <div class="reveal">
           <p class="eyebrow">Not sure which package?</p>
           <h2>Get a custom quote</h2>
           <p>Tell us a bit about the project and we'll reply with a scoped recommendation &mdash; usually within one business day.</p>
         </div>
-        <form class="card reveal" data-validate-form novalidate>
+        <form class="card reveal" id="quote-form" data-validate-form novalidate>
           <div class="form-grid cols-2">
             <div class="field">
               <label for="q-name">Name</label>
