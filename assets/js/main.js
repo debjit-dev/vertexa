@@ -83,7 +83,7 @@
           <span>Vertexa<small>Digital Agency</small></span>
         </a>
         <ul class="nav-links">${desktopLinks}</ul>
-        <a href="/contact.html" class="btn btn-primary nav-cta">Get a Free Quote</a>
+        <a href="/contact.html" class="btn btn-primary nav-cta">Get a Quote</a>
         <button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle dark / light mode"></button>
         <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
           <span></span><span></span><span></span>
@@ -110,6 +110,17 @@
     };
     document.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
+    // Header is position:fixed below 1024px (see CSS) — keep body's offset in
+    // sync with its real height so page content never sits underneath it.
+    const mobileHeaderMq = window.matchMedia("(max-width: 1023.98px)");
+    const syncMobileHeaderOffset = () => {
+      document.body.style.paddingTop = mobileHeaderMq.matches ? header.offsetHeight + "px" : "";
+    };
+    syncMobileHeaderOffset();
+    window.addEventListener("resize", syncMobileHeaderOffset);
+    if (mobileHeaderMq.addEventListener) mobileHeaderMq.addEventListener("change", syncMobileHeaderOffset);
+    else mobileHeaderMq.addListener(syncMobileHeaderOffset); // Safari < 14
 
     const hamburger = document.querySelector(".hamburger");
     const drawer = document.getElementById("mobile-drawer");
@@ -955,12 +966,67 @@
   }
 
   /* ---------------------------------------------------------
+     14. TYPEWRITER TEXT (hero lead + hero heading line)
+     Types .typed-lead / .typed-heading elements in parallel, then
+     once BOTH have finished, waits 5s and retypes them again — an
+     endless loop. Height is reserved once so wrapping never shifts
+     the layout. Pace is tunable per element via data-speed (ms per
+     letter) and data-word-pause (ms pause after each word).
+     --------------------------------------------------------- */
+  function initTypedText() {
+    const els = document.querySelectorAll(".typed-lead, .typed-heading");
+    if (!els.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const runners = Array.from(els).map((el) => {
+      const textEl = el.querySelector(".typed-text");
+      const full = textEl && textEl.textContent;
+      if (!full) return null;
+      el.style.minHeight = el.offsetHeight + "px";
+      return {
+        el, textEl, full,
+        speed: parseInt(el.getAttribute("data-speed"), 10) || 38,
+        wordPause: parseInt(el.getAttribute("data-word-pause"), 10) || 0,
+      };
+    }).filter(Boolean);
+    if (!runners.length) return;
+
+    function typeOnce(r) {
+      return new Promise((resolve) => {
+        r.textEl.textContent = "";
+        let i = 0;
+        function step() {
+          const justTyped = r.full[i];
+          r.textEl.textContent = r.full.slice(0, i + 1);
+          i++;
+          if (i < r.full.length) {
+            // Pause longer after a word/sentence-end than the base per-letter speed.
+            const pause = (justTyped === " " && r.wordPause) ? r.wordPause
+              : /[.!?]/.test(justTyped) ? 340
+              : /[,—]/.test(justTyped) ? 210
+              : r.speed;
+            setTimeout(step, pause);
+          } else {
+            resolve();
+          }
+        }
+        setTimeout(step, 300);
+      });
+    }
+
+    // Wait for every element to finish, pause 5s, then retype them all again.
+    (function cycle() {
+      Promise.all(runners.map(typeOnce)).then(() => setTimeout(cycle, 5000));
+    })();
+  }
+
+  /* ---------------------------------------------------------
      INIT
      --------------------------------------------------------- */
   document.addEventListener("DOMContentLoaded", () => {
     renderHeader();
     renderFooter();
     initReveal();
+    initTypedText();
     initDeviceParallax();
     initCarousel();
     initPortfolioFilter();
