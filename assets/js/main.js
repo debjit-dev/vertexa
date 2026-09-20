@@ -210,7 +210,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <span>&copy; ${year} Vertexa Digital Agency. All rights reserved. &bull; Salt Lake Sector V, Kolkata</span>
+          <span>&copy; ${year} Vertexa Digital Agency. All rights reserved.</span>
           <div class="footer-legal">
             <a href="/privacy-policy.html">Privacy Policy</a>
             <a href="/terms.html">Terms of Service</a>
@@ -1020,6 +1020,16 @@
   }
 
   /* ---------------------------------------------------------
+     ROUTE GUARD (registers /sw.js so unknown routes always
+     render pagenotfound.html, even on dev servers like Live
+     Server that don't honor a host-level 404.html)
+     --------------------------------------------------------- */
+  function initRouteGuard() {
+    if (!("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  }
+
+  /* ---------------------------------------------------------
      INIT
      --------------------------------------------------------- */
   document.addEventListener("DOMContentLoaded", () => {
@@ -1039,6 +1049,7 @@
     initCookieBanner();
     initBookingSlots();
     initShowcaseSlider();
+    initRouteGuard();
   });
 })();
 

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Not Found — Vertexa Digital Agency</title>
+  <meta name="description" content="The page you're looking for doesn't exist or may have moved. You'll be redirected to the Vertexa Digital Agency homepage shortly.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230B1F3A'/><text y='78' font-size='70' font-family='Arial,sans-serif' font-weight='900' fill='%232FB6A6' x='50' text-anchor='middle'>V</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script>!function(){var t=localStorage.getItem('vx-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}();</script>
+</head>
+<body data-page="">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header"></header>
+
+  <main id="main">
+    <section class="pnf-section">
+      <div class="container">
+        <div class="pnf-wrap">
+          <p class="pnf-badge">Error 404</p>
+          <p class="pnf-code" aria-hidden="true">404</p>
+          <h1>This page took a wrong turn</h1>
+          <p class="lead">The page you're looking for doesn't exist, may have been moved, or the link is out of date. No worries &mdash; we'll take you back home automatically, or you can jump ahead now.</p>
+
+          <div class="pnf-actions">
+            <a href="/index.html" class="btn btn-primary">Back to Home</a>
+            <a href="/services.html" class="btn btn-outline">View Services</a>
+          </div>
+
+          <div class="pnf-countdown" id="pnf-countdown" data-state="running">
+            <svg class="pnf-ring" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+              <circle class="pnf-ring-track" cx="22" cy="22" r="18"></circle>
+              <circle class="pnf-ring-progress" id="pnf-ring-progress" cx="22" cy="22" r="18"
+                      stroke-dasharray="113.097" stroke-dashoffset="0"></circle>
+              <text class="pnf-ring-num" id="pnf-ring-num" x="22" y="26" text-anchor="middle">5</text>
+            </svg>
+            <p class="pnf-countdown-text">
+              Redirecting to <strong>Home</strong> in <strong id="pnf-countdown-num">5</strong>s&hellip;
+              <button type="button" class="pnf-cancel" id="pnf-cancel">Cancel</button>
+            </p>
+          </div>
+
+          <div class="pnf-links">
+            <p class="pnf-links-label">Looking for something specific?</p>
+            <nav class="pnf-links-nav" aria-label="Quick links">
+              <a href="/portfolio.html">Portfolio</a>
+              <a href="/pricing.html">Pricing</a>
+              <a href="/contact.html">Contact</a>
+            </nav>
+          </div>
+
+          <p class="visually-hidden" role="status" aria-live="polite" id="pnf-live"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+  <script src="/assets/js/main.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var DURATION = 5;
+      var HOME_URL = "/index.html";
+      var remaining = DURATION;
+      var CIRC = 113.097;
+
+      var ring = document.getElementById("pnf-ring-progress");
+      var ringNum = document.getElementById("pnf-ring-num");
+      var countNum = document.getElementById("pnf-countdown-num");
+      var liveRegion = document.getElementById("pnf-live");
+      var wrap = document.getElementById("pnf-countdown");
+      var cancelBtn = document.getElementById("pnf-cancel");
+      var timer = null;
+
+      function render() {
+        ringNum.textContent = remaining;
+        countNum.textContent = remaining;
+        ring.style.strokeDashoffset = String(CIRC * (1 - remaining / DURATION));
+        liveRegion.textContent = "Redirecting to the homepage in " + remaining + " second" + (remaining === 1 ? "" : "s") + ".";
+      }
+
+      function tick() {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(timer);
+          wrap.setAttribute("data-state", "done");
+          liveRegion.textContent = "Redirecting to the homepage now.";
+          window.location.replace(HOME_URL);
+          return;
+        }
+        render();
+      }
+
+      render();
+      timer = window.setInterval(tick, 1000);
+
+      cancelBtn.addEventListener("click", function () {
+        clearInterval(timer);
+        wrap.setAttribute("data-state", "cancelled");
+        wrap.querySelector(".pnf-countdown-text").textContent = "Automatic redirect cancelled — stay as long as you like.";
+        liveRegion.textContent = "Automatic redirect cancelled.";
+      });
+    })();
+  </script>
+</body>
+</html>

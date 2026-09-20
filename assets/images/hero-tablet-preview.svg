@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1067" role="img" aria-labelledby="t">
+  <title id="t">Vertexa website preview on tablet</title>
+  <rect width="800" height="1067" fill="#FFFFFF"/>
+  <!-- Navbar -->
+  <rect width="800" height="72" fill="#0B1F3A"/>
+  <rect x="28" y="20" width="32" height="32" rx="8" fill="#2FB6A6"/>
+  <text x="44" y="43" font-family="Arial, sans-serif" font-weight="900" font-size="16" fill="#0B1F3A" text-anchor="middle">V</text>
+  <rect x="720" y="28" width="24" height="4" rx="2" fill="#8FA0B8"/>
+  <rect x="720" y="36" width="24" height="4" rx="2" fill="#8FA0B8"/>
+  <rect x="720" y="44" width="24" height="4" rx="2" fill="#8FA0B8"/>
+  <!-- Hero -->
+  <rect x="0" y="72" width="800" height="360" fill="#F2F5F8"/>
+  <rect x="220" y="130" width="120" height="12" rx="6" fill="#2FB6A6"/>
+  <rect x="140" y="166" width="520" height="28" rx="6" fill="#0B1F3A"/>
+  <rect x="200" y="204" width="400" height="28" rx="6" fill="#0B1F3A"/>
+  <rect x="180" y="252" width="440" height="10" rx="5" fill="#C6CCD4"/>
+  <rect x="220" y="272" width="360" height="10" rx="5" fill="#C6CCD4"/>
+  <rect x="300" y="308" width="200" height="44" rx="22" fill="#2FB6A6"/>
+  <!-- Graphic panel -->
+  <rect x="100" y="432" width="600" height="220" rx="18" fill="url(#gradHeroTablet)"/>
+  <circle cx="220" cy="500" r="28" fill="rgba(255,255,255,0.35)"/>
+  <rect x="270" y="480" width="280" height="14" rx="7" fill="rgba(255,255,255,0.45)"/>
+  <rect x="270" y="506" width="200" height="14" rx="7" fill="rgba(255,255,255,0.3)"/>
+  <rect x="150" y="560" width="500" height="60" rx="12" fill="rgba(255,255,255,0.18)"/>
+  <!-- Cards -->
+  <rect x="100" y="700" width="600" height="160" rx="16" fill="#FFFFFF" stroke="#E1E7ED" stroke-width="2"/>
+  <circle cx="140" cy="740" r="20" fill="#DBEAFE"/>
+  <rect x="124" y="778" width="220" height="16" rx="6" fill="#0B1F3A"/>
+  <rect x="124" y="806" width="340" height="10" rx="5" fill="#C6CCD4"/>
+  <rect x="100" y="884" width="600" height="160" rx="16" fill="#FFFFFF" stroke="#E1E7ED" stroke-width="2"/>
+  <circle cx="140" cy="924" r="20" fill="#D1FAE5"/>
+  <rect x="124" y="962" width="220" height="16" rx="6" fill="#0B1F3A"/>
+  <rect x="124" y="990" width="340" height="10" rx="5" fill="#C6CCD4"/>
+  <defs>
+    <linearGradient id="gradHeroTablet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2FB6A6"/>
+      <stop offset="100%" stop-color="#1E5FA8"/>
+    </linearGradient>
+  </defs>
+</svg>

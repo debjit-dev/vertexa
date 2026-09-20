@@ -170,6 +170,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-color: var(--blue);
   box-shadow: 0 10px 26px rgba(30, 95, 168, 0.4);
 }
+/* Reusable variant for outline buttons placed on dark/navy backgrounds
+   (e.g. the home page's final CTA band) — same look as the hero outline CTA. */
+.btn-outline--on-dark {
+  color: #9CC5F7;
+  border-color: rgba(115, 178, 245, 0.5);
+  background: rgba(115, 178, 245, 0.08);
+}
+.btn-outline--on-dark:hover {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+  box-shadow: 0 10px 26px rgba(30, 95, 168, 0.4);
+}
 .btn-ghost { background: transparent; color: var(--blue); padding: 0.85rem 0.2rem; }
 .btn-ghost:hover { color: var(--teal-dark); transform: translateX(3px); }
 .btn-block { width: 100%; justify-content: center; }
@@ -650,6 +663,11 @@ table.compare tbody tr:nth-child(even) { background: var(--bg); }
   }
   .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
   .footer-legal { justify-content: center; }
+
+  /* Mobile-only: Company + Services side by side, Work & Legal on its own row below */
+  .footer-top { grid-template-columns: 1fr 1fr; column-gap: 1.5rem; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-col:nth-child(4) { grid-column: 1 / -1; }
 }
 
 /* ---------- Page hero (interior pages) ---------- */
@@ -2655,6 +2673,159 @@ body, .card, .section-alt, .quote-card, .metric-card, .process-card,
   margin-bottom: 0.6rem;
 }
 
+/* =========================================================
+   PAGE NOT FOUND — dedicated error page
+   ========================================================= */
+.pnf-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--grad-dark);
+  color: var(--white);
+  padding: clamp(3.5rem, 2.6rem + 4vw, 6rem) 0;
+  min-height: calc(100vh - 340px);
+  display: flex;
+  align-items: center;
+}
+.pnf-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(47,182,166,0.16), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(30,95,168,0.22), transparent 50%);
+  pointer-events: none;
+}
+.pnf-wrap {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.pnf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9CC5F7;
+  background: rgba(115,178,245,0.1);
+  border: 1px solid rgba(115,178,245,0.3);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+.pnf-code {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 3.4rem + 6vw, 8.5rem);
+  line-height: 1;
+  margin: 0 0 0.75rem;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pnf-section h1 { color: var(--white); margin-bottom: 0.85rem; }
+.pnf-section .lead { color: #C4CEDC; max-width: 50ch; margin: 0 auto 2.25rem; }
+.pnf-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2.25rem; }
+/* Match the hero's "View Our Work" outline styling on the same dark background */
+.pnf-actions .btn-outline {
+  color: #9CC5F7;
+  border-color: rgba(115, 178, 245, 0.5);
+  background: rgba(115, 178, 245, 0.08);
+}
+.pnf-actions .btn-outline:hover {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+  box-shadow: 0 10px 26px rgba(30, 95, 168, 0.4);
+}
 
+/* Quick links — separated from the countdown by a divider + generous gap */
+.pnf-links {
+  padding-top: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  margin-top: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.pnf-links-label { font-size: 0.85rem; color: #93A3B9; margin-bottom: 1rem; }
+.pnf-links-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 1.5rem; }
+.pnf-links-nav a {
+  position: relative;
+  color: #9CC5F7;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.pnf-links-nav a:hover, .pnf-links-nav a:focus-visible { color: var(--teal); border-color: var(--teal); }
+.pnf-links-nav a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -0.8rem;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #93A3B9;
+  transform: translateY(-50%);
+}
+
+/* Countdown ring */
+.pnf-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem 0.6rem 0.6rem;
+  max-width: 100%;
+}
+.pnf-ring { flex-shrink: 0; transform: rotate(-90deg); }
+.pnf-ring-track { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 4; }
+.pnf-ring-progress {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+.pnf-ring-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  fill: var(--white);
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+.pnf-countdown-text { font-size: 0.88rem; color: #C4CEDC; text-align: left; }
+.pnf-countdown-text strong { color: var(--white); font-family: var(--font-display); }
+.pnf-cancel {
+  background: none; border: none; padding: 0; margin-left: 0.5rem;
+  color: #9CC5F7; text-decoration: underline; text-underline-offset: 2px;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer;
+}
+.pnf-cancel:hover { color: var(--teal); }
+.pnf-countdown[data-state="done"],
+.pnf-countdown[data-state="cancelled"] { opacity: 0.6; }
+
+[data-theme="dark"] .pnf-section { background: linear-gradient(135deg, #060c17 0%, #0f1a2c 100%); }
+
+/* Small phones — keep the countdown pill from cramping/overflowing */
+@media (max-width: 480px) {
+  .pnf-countdown { flex-wrap: wrap; justify-content: center; border-radius: var(--radius-sm); padding: 1rem; }
+  .pnf-countdown-text { text-align: center; }
+  .pnf-links-nav { gap: 0.6rem 1.1rem; }
+}
+
+/* Ultra-wide (8K) — grow the reading column to match other capped content blocks */
+@media (min-width: 7680px) {
+  .pnf-wrap { max-width: 900px; }
+}
 
 
