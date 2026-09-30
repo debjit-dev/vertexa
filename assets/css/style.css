@@ -850,6 +850,148 @@ table.compare tbody tr:nth-child(even) { background: var(--bg); }
 .form-status.success { background: #E4F7F1; color: #1C6E5C; }
 .form-status.error { background: #FBEAEA; color: #A6332E; }
 
+/* =========================================================
+   CONTACT FORM — professional, animated, live-validated
+   ========================================================= */
+.contact-form-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem);
+}
+.contact-form-card::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -100px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47,182,166,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+[data-theme="dark"] .contact-form-card::before {
+  background: radial-gradient(circle, rgba(47,182,166,0.2) 0%, transparent 70%);
+}
+
+.form-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 1;
+}
+[data-theme="dark"] .form-intro { border-color: #1e2d40; }
+.form-intro-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(47,182,166,0.12);
+  color: var(--teal-dark);
+}
+[data-theme="dark"] .form-intro-icon { background: rgba(47,182,166,0.16); color: var(--teal); }
+.form-intro-icon svg { width: 22px; height: 22px; }
+.form-intro h2 { font-size: 1.25rem; margin-bottom: 0.3rem; }
+.form-intro p { margin: 0; font-size: 0.9rem; color: var(--grey); }
+
+/* ---- Field icon feedback (animated check / alert) ---- */
+.field-input-wrap { position: relative; }
+.field-input-wrap input,
+.field-input-wrap textarea { width: 100%; padding-right: 2.6rem; }
+.field-icon {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%) scale(0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s var(--ease-bounce), opacity 0.2s var(--ease);
+}
+.field-input-wrap--top .field-icon { top: 1.05rem; transform: scale(0.4); }
+.field-icon--valid { color: #1C9C7C; }
+.field-icon--invalid { color: #D9534F; }
+.field.has-success .field-icon--valid { opacity: 1; transform: translateY(-50%) scale(1); }
+.field.has-success .field-input-wrap--top .field-icon--valid { transform: scale(1); }
+.field.has-error .field-icon--invalid { opacity: 1; transform: translateY(-50%) scale(1); }
+.field.has-error .field-input-wrap--top .field-icon--invalid { transform: scale(1); }
+
+/* ---- Animated focus glow + live success/error state ---- */
+.field input, .field textarea, .field select {
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  box-shadow: 0 0 0 4px rgba(47,182,166,0.15);
+}
+.field.has-success input, .field.has-success textarea, .field.has-success select {
+  border-color: #1C9C7C;
+}
+.field.has-success input:focus, .field.has-success textarea:focus, .field.has-success select:focus {
+  box-shadow: 0 0 0 4px rgba(28,156,124,0.15);
+}
+.field.has-error input:focus, .field.has-error textarea:focus, .field.has-error select:focus {
+  box-shadow: 0 0 0 4px rgba(217,83,79,0.15);
+}
+.field-success { font-size: 0.78rem; color: #1C9C7C; display: none; }
+.field.has-success .field-success { display: block; }
+.field-error, .field-success {
+  animation: fieldMessageIn 0.25s var(--ease) both;
+}
+@keyframes fieldMessageIn {
+  0% { opacity: 0; transform: translateY(-4px); }
+  100% { opacity: 1; }
+}
+
+/* ---- Animated submit button ---- */
+.contact-submit-btn {
+  margin-top: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  position: relative;
+  overflow: hidden;
+}
+.contact-submit-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.28) 50%, transparent 80%);
+  transform: translateX(-100%);
+  transition: transform 0.6s var(--ease);
+}
+.contact-submit-btn:hover::after { transform: translateX(100%); }
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  animation: btnSpin 0.7s linear infinite;
+}
+.contact-submit-btn.is-loading .btn-spinner { display: inline-block; }
+.contact-submit-btn.is-loading .btn-label { opacity: 0.85; }
+@keyframes btnSpin { to { transform: rotate(360deg); } }
+
+/* ---- Animated status banner ---- */
+.form-status {
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  opacity: 0;
+  transform: translateY(-6px);
+}
+.form-status.is-visible { display: block; opacity: 1; transform: translateY(0); }
+
+/* ---- Booking sidebar card polish ---- */
+.contact-booking-card { position: relative; }
+
 /* ---------- CTA band ---------- */
 .cta-band {
   background: var(--grad-dark);
@@ -2885,70 +3027,438 @@ body, .card, .section-alt, .option, .metric-card, .process-card,
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* ---- Team Cards & Founder Photos (about.html) ---- */
-.team-card {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.75rem;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-  position: relative;
-  overflow: hidden;
+/* =========================================================
+   PROFILE CARD (about.html founders) — faithful adaptation of
+   the supplied tabbed About / Experience / Contact card design.
+   Classes are namespaced "pcard-" to avoid clashing with the
+   site-wide .card component used on every other page.
+   ========================================================= */
+.pcard-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 2rem);
 }
 
-[data-theme="dark"] .team-card {
-  background: #141b28;
-  border-color: #1e2d40;
-}
-
-.team-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -10px rgba(11, 31, 58, 0.2);
-  border-color: rgba(47, 182, 166, 0.4);
-}
-
-.team-photo-wrap {
+/* Own perspective per card so both founders tilt identically on hover,
+   independent of their position in the shared grid. */
+.pcard-stage {
   width: 100%;
-  aspect-ratio: 1/1;
-  border-radius: calc(var(--radius) - 4px);
-  overflow: hidden;
-  margin-bottom: 1.25rem;
-  background: var(--navy);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  position: relative;
+  max-width: 340px;
+  perspective: 1100px;
 }
 
-.team-photo-wrap img {
+.pcard {
   width: 100%;
-  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2), var(--shadow);
+  font-family: "Jost", sans-serif;
+  color: #2b2c48;
+  transition: 0.3s;
+}
+[data-theme="dark"] .pcard {
+  background-color: #141b28;
+  box-shadow: 0 0 0 8px rgba(47, 182, 166, 0.08);
+  color: #e2e8ef;
+}
+
+.pcard[data-state^="#about"] { height: 450px; }
+.pcard[data-state^="#about"] .pcard-main { padding-top: 0; }
+.pcard[data-state^="#contact"] { height: 430px; }
+.pcard[data-state^="#experience"] { height: 550px; }
+
+.pcard.is-active .pcard-header { height: 80px; }
+.pcard.is-active .pcard-cover { height: 100px; top: -50px; }
+.pcard.is-active .pcard-avatar { transform: none; left: 20px; width: 50px; height: 50px; bottom: 10px; }
+.pcard.is-active .pcard-fullname,
+.pcard.is-active .pcard-jobtitle { left: 86px; transform: none; }
+.pcard.is-active .pcard-fullname { bottom: 32px; font-size: 19px; }
+.pcard.is-active .pcard-jobtitle { bottom: 10px; letter-spacing: 1px; font-size: 10px; }
+
+.pcard-header {
+  position: relative;
+  display: flex;
+  height: 200px;
+  flex-shrink: 0;
+  width: 100%;
+  transition: 0.3s;
+}
+.pcard-header * { transition: 0.3s; }
+
+.pcard-cover {
+  width: 100%;
+  height: 160px;
+  position: absolute;
+  top: -20%;
+  left: 0;
+  will-change: top;
+  background-size: cover;
+  background-position: center;
+  filter: blur(30px);
+  transform: scale(1.2);
+  transition: 0.5s;
+}
+
+.pcard-avatar {
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  object-position: center;
   object-fit: cover;
-  object-position: center top;
-  display: block;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-64px);
 }
 
-.team-card:hover .team-photo-wrap img {
-  transform: scale(1.06);
-}
-
-.team-founder-badge {
-  display: inline-block;
-  background: rgba(47, 182, 166, 0.15);
-  color: var(--teal);
-  font-size: 0.75rem;
+.pcard-fullname {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 0;
+  font-size: 22px;
+  font-family: "Jost", sans-serif;
   font-weight: 700;
-  padding: 0.25rem 0.65rem;
-  border-radius: 999px;
-  margin-bottom: 0.6rem;
-  border: 1px solid rgba(47, 182, 166, 0.3);
+  text-align: center;
+  white-space: nowrap;
+  transform: translateY(-30px) translateX(-50%);
+  color: #2b2c48;
+}
+[data-theme="dark"] .pcard-fullname { color: #f0f4f8; }
+
+.pcard-jobtitle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 0;
+  font-size: 11px;
+  white-space: nowrap;
+  font-weight: 500;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transform: translateX(-50%) translateY(-7px);
+  color: #2b2c48;
+}
+[data-theme="dark"] .pcard-jobtitle { color: #c8d8e8; }
+
+.pcard-main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  padding-top: 10px;
+  flex-direction: column;
 }
 
-.team-role {
-  font-size: 0.88rem;
+.pcard-subtitle {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #2b2c48;
+}
+[data-theme="dark"] .pcard-subtitle { color: #f0f4f8; }
+
+.pcard-content { padding: 20px; }
+
+.pcard-desc {
+  line-height: 1.6;
+  color: #636b6f;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
+}
+[data-theme="dark"] .pcard-desc { color: #94a3b8; }
+
+.pcard-social { display: flex; align-items: center; padding: 0 20px; margin-bottom: 30px; }
+.pcard-social svg { fill: rgb(165, 181, 206); width: 16px; display: block; transition: 0.3s; }
+.pcard-social a {
+  color: #8797a1;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  background-color: rgba(93, 133, 193, 0.05);
+  margin-right: 10px;
+}
+.pcard-social a:hover svg { fill: #7c8ea8; }
+.pcard-social a:last-child { margin-right: 0; }
+
+.pcard-buttons {
+  display: flex;
+  background-color: #fff;
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+}
+[data-theme="dark"] .pcard-buttons { background-color: #141b28; }
+.pcard-buttons button {
+  flex: 1 1 auto;
+  user-select: none;
+  background: 0;
+  font-size: 13px;
+  border: 0;
+  padding: 15px 5px;
+  cursor: pointer;
+  color: #5c5c6d;
+  transition: 0.3s;
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  outline: 0;
+  border-bottom: 3px solid transparent;
+}
+[data-theme="dark"] .pcard-buttons button { color: #8899aa; }
+.pcard-buttons button.is-active,
+.pcard-buttons button:hover {
+  color: #2b2c48;
+  border-bottom: 3px solid #8a84ff;
+  background: linear-gradient(to bottom, rgba(127, 199, 231, 0) 0%, rgba(207, 204, 255, 0.2) 44%, rgba(211, 226, 255, 0.4) 100%);
+}
+[data-theme="dark"] .pcard-buttons button.is-active,
+[data-theme="dark"] .pcard-buttons button:hover {
+  color: #f0f4f8;
+  background: linear-gradient(to bottom, rgba(127, 199, 231, 0) 0%, rgba(138, 132, 255, 0.14) 44%, rgba(138, 132, 255, 0.22) 100%);
+}
+
+.pcard-section { display: none; }
+.pcard-section.is-active { display: block; animation: pcardFadeIn 0.6s both; }
+
+@keyframes pcardFadeIn {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; }
+}
+
+.pcard-timeline { margin-top: 30px; position: relative; }
+.pcard-timeline::after {
+  content: "";
+  background: linear-gradient(to top, rgba(134, 214, 243, 0) 0%, rgba(81, 106, 204, 1) 100%);
+  left: 42px;
+  width: 2px;
+  top: 0;
+  height: 100%;
+  position: absolute;
+}
+
+.pcard-item { position: relative; padding-left: 60px; padding-right: 20px; padding-bottom: 30px; z-index: 1; }
+.pcard-item:last-child { padding-bottom: 5px; }
+.pcard-item::after {
+  content: attr(data-year);
+  position: absolute;
+  top: 0;
+  left: 37px;
+  width: 8px;
+  height: 8px;
+  line-height: 0.6;
+  border: 2px solid #fff;
+  font-size: 11px;
+  text-indent: -35px;
+  border-radius: 50%;
+  color: rgba(134, 134, 134, 0.7);
+  background: linear-gradient(to bottom, #82a0ff 0%, #516acc 100%);
+}
+[data-theme="dark"] .pcard-item::after { border-color: #141b28; }
+
+.pcard-item-title { font-weight: 500; font-size: 14px; margin-bottom: 5px; color: #2b2c48; }
+[data-theme="dark"] .pcard-item-title { color: #f0f4f8; }
+.pcard-item-title span { color: #516acc; }
+[data-theme="dark"] .pcard-item-title span { color: #8a9bff; }
+
+.pcard-item-desc { font-size: 13px; color: #6f6f7b; line-height: 1.5; font-family: "DM Sans", sans-serif; }
+[data-theme="dark"] .pcard-item-desc { color: #94a3b8; }
+
+.pcard-contact-wrapper { margin-top: 20px; }
+.pcard-contact {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #6f6f7b;
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.6;
+  cursor: pointer;
+}
+[data-theme="dark"] .pcard-contact { color: #c8d8e8; }
+.pcard-contact + .pcard-contact { margin-top: 16px; }
+.pcard-contact svg {
+  flex-shrink: 0;
+  width: 30px;
+  min-height: 34px;
+  margin-right: 12px;
+  transition: 0.3s;
+  padding-right: 12px;
+  border-right: 1px solid #dfe2ec;
+}
+[data-theme="dark"] .pcard-contact svg { border-right-color: #2a3a50; }
+
+.pcard-contact-me {
+  border: 0;
+  outline: none;
+  background: linear-gradient(to right, rgba(83, 200, 239, 0.8) 0%, rgba(81, 106, 204, 0.8) 96%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  padding: 12px 16px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Jost", sans-serif;
+  transition: 0.3s;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+.pcard-contact-me:hover { box-shadow: 0 6px 14px rgba(81, 106, 204, 0.35); transform: translateY(-2px); }
+
+/* ---- Cursor-tilt / glow / glare animation (mouse-driven, per card) ---- */
+/* Override the base 0.3s all-property transition so it no longer fights the
+   JS rAF tilt loop, which already eases "transform" itself every frame. */
+.pcard {
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  will-change: transform;
+}
+.pcard:hover {
+  box-shadow: 0 0 0 8px rgba(47, 182, 166, 0.16), 0 24px 60px rgba(11, 31, 58, 0.22), 0 0 45px rgba(47, 182, 166, 0.12);
+}
+[data-theme="dark"] .pcard:hover {
+  box-shadow: 0 0 0 8px rgba(47, 182, 166, 0.16), 0 28px 70px rgba(0, 0, 0, 0.55), 0 0 55px rgba(47, 182, 166, 0.16);
+}
+
+.pcard-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47, 182, 166, 0.22) 0%, rgba(30, 95, 168, 0.12) 34%, transparent 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(18px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 250ms ease;
+}
+.pcard-glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18) 0%, transparent 62%);
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 6;
+  transition: opacity 250ms ease;
+}
+
+.pcard [data-depth] {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ---- Top status (online) + PRO badge overlay on the cover ---- */
+.pcard-top {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  right: 14px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pcard.is-active .pcard-top { opacity: 0; pointer-events: none; }
+
+.pcard-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(11, 31, 58, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #e7edf5;
+  font-size: 10px;
   font-weight: 600;
-  color: var(--teal);
-  margin-bottom: 0.6rem;
+  letter-spacing: 0.03em;
+}
+.pcard-status-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18), 0 0 10px rgba(52, 211, 153, 0.6);
+}
+.pcard-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  border-radius: inherit;
+  animation: pcardStatusPulse 2.2s ease-out infinite;
+}
+@keyframes pcardStatusPulse {
+  0% { transform: scale(0.7); opacity: 0.8; }
+  70%, 100% { transform: scale(1.8); opacity: 0; }
+}
+
+.pcard-pro-badge {
+  padding: 4px 9px;
+  border: 1px solid rgba(47, 182, 166, 0.5);
+  border-radius: 999px;
+  background: rgba(11, 31, 58, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #7de8de;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* ---- Bottom accent line under the header (seam above the tab content) ---- */
+.pcard-accent {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), var(--blue), transparent);
+  box-shadow: 0 0 16px rgba(47, 182, 166, 0.35), 0 0 22px rgba(30, 95, 168, 0.22);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .pcard { transform: none !important; }
+  .pcard [data-depth] { transform: none !important; }
+  .pcard-glare { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcard, .pcard [data-depth] { transition: none !important; }
+  .pcard-status-dot::after { animation: none !important; }
+}
+
+/* Smallest phones: two 340px cards can't sit side by side without overflow,
+   so they wrap onto their own row while every other rule stays identical. */
+@media (max-width: 719.98px) {
+  .pcard-grid { gap: 1.5rem; }
 }
 
 /* =========================================================

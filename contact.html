@@ -23,28 +23,54 @@
         <p class="breadcrumb"><a href="/index.html">Home</a> / Contact</p>
         <p class="eyebrow">Get in touch</p>
         <h1>Let's talk about your website</h1>
-        <p class="lead">Fill in the form and we'll reply within one business day &mdash; or reach us directly using the details alongside it.</p>
+        <p class="lead">Fill in the form and we'll reply within one business day &mdash; or pick an instant discovery call slot alongside it.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container two-col" style="align-items:start;">
 
-        <form class="card reveal" data-validate-form novalidate>
+        <form class="card contact-form-card reveal" data-validate-form novalidate>
+          <div class="form-intro">
+            <span class="form-intro-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </span>
+            <div>
+              <h2>Send us a message</h2>
+              <p>Every field checks itself live as you type — no surprises when you hit submit.</p>
+            </div>
+          </div>
+
           <div class="form-grid cols-2">
             <div class="field">
               <label for="c-name">Name</label>
-              <input type="text" id="c-name" name="name" required autocomplete="name">
-              <span class="field-error">Please enter your name.</span>
+              <div class="field-input-wrap">
+                <input type="text" id="c-name" name="name" required autocomplete="name" placeholder="Your full name">
+                <svg class="field-icon field-icon--valid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="field-icon field-icon--invalid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <span class="field-error">Please enter your full name.</span>
+              <span class="field-success">Looks good.</span>
             </div>
             <div class="field">
               <label for="c-email">Email</label>
-              <input type="email" id="c-email" name="email" required autocomplete="email">
-              <span class="field-error">Please enter a valid email.</span>
+              <div class="field-input-wrap">
+                <input type="email" id="c-email" name="email" required autocomplete="email" placeholder="you@company.com">
+                <svg class="field-icon field-icon--valid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="field-icon field-icon--invalid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <span class="field-error">Enter a valid email address.</span>
+              <span class="field-success">Valid email address.</span>
             </div>
             <div class="field">
               <label for="c-phone">Phone <span class="field-hint">(optional)</span></label>
-              <input type="tel" id="c-phone" name="phone" autocomplete="tel">
+              <div class="field-input-wrap">
+                <input type="tel" id="c-phone" name="phone" autocomplete="tel" placeholder="+91 00000 00000">
+                <svg class="field-icon field-icon--valid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="field-icon field-icon--invalid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <span class="field-error">Enter a valid phone number.</span>
+              <span class="field-success">Looks good.</span>
             </div>
             <div class="field">
               <label for="c-interest">I'm interested in</label>
@@ -58,33 +84,38 @@
             </div>
             <div class="field" style="grid-column:1/-1;">
               <label for="c-subject">Subject</label>
-              <input type="text" id="c-subject" name="subject" required>
-              <span class="field-error">Please add a subject.</span>
+              <div class="field-input-wrap">
+                <input type="text" id="c-subject" name="subject" required placeholder="What's this about?">
+                <svg class="field-icon field-icon--valid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="field-icon field-icon--invalid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <span class="field-error">Add a short subject (min 3 characters).</span>
+              <span class="field-success">Looks good.</span>
             </div>
             <div class="field" style="grid-column:1/-1;">
               <label for="c-message">Message</label>
-              <textarea id="c-message" name="message" rows="5" required></textarea>
-              <span class="field-error">Please add a short message.</span>
+              <div class="field-input-wrap field-input-wrap--top">
+                <textarea id="c-message" name="message" rows="5" required placeholder="Tell us a bit about your project..."></textarea>
+                <svg class="field-icon field-icon--valid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="field-icon field-icon--invalid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <span class="field-error">Tell us a bit more (min 10 characters).</span>
+              <span class="field-success">Great — that's plenty of detail.</span>
             </div>
           </div>
           <div class="honeypot" aria-hidden="true">
             <label for="c-company_website">Company website</label>
             <input type="text" id="c-company_website" name="company_website" tabindex="-1" autocomplete="off">
           </div>
-          <button type="submit" class="btn btn-primary btn-block" style="margin-top:1.4rem;">Send Message</button>
+          <button type="submit" class="btn btn-primary btn-block contact-submit-btn">
+            <span class="btn-label">Send Message</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
           <div class="form-status" role="status"></div>
         </form>
 
         <div class="reveal">
-          <div class="card" style="margin-bottom:1.5rem;">
-            <h3>Direct details</h3>
-            <p style="margin-bottom:0.4rem;"><strong style="color:var(--navy);">Email:</strong> <a href="mailto:hello@vertexa.agency" style="color:var(--blue);">hello@vertexa.agency</a></p>
-            <p style="margin-bottom:0.4rem;"><strong style="color:var(--navy);">Phone:</strong> <a href="tel:+913340001122" style="color:var(--navy);">+91 33 4000 1122</a></p>
-            <p style="margin-bottom:0.8rem;"><strong style="color:var(--navy);">Office:</strong> Salt Lake Sector V, Kolkata, West Bengal 700091, India</p>
-            <p style="margin-bottom:0;font-size:0.85rem;color:var(--grey);"><strong style="color:var(--navy);">Hours:</strong> Mon – Fri: 9:30 AM – 6:30 PM IST (Global asynchronous support 24/7)</p>
-          </div>
-
-          <div class="card" style="margin-bottom:1.5rem;">
+          <div class="card contact-booking-card">
             <h3>Instant Discovery Booking</h3>
             <p style="font-size:0.9rem;margin-bottom:0.6rem;">Select a preferred 20-minute video intro slot to pre-fill your inquiry:</p>
             <div class="booking-slots">
@@ -99,42 +130,6 @@
               <a href="#" aria-label="Vertexa on X" style="border-color:var(--line);color:var(--navy);">X</a>
               <a href="#" aria-label="Vertexa on Instagram" style="border-color:var(--line);color:var(--navy);">IG</a>
             </div>
-          </div>
-
-          <!-- Embedded Styled Vector Map -->
-          <div class="vector-map-wrap">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
-              <h4 style="margin:0;color:var(--white);font-size:0.95rem;">Location &amp; Tech Hub</h4>
-              <span style="font-size:0.75rem;color:var(--teal);font-weight:700;">22.5804° N, 88.4378° E</span>
-            </div>
-            <div class="vector-map-canvas" aria-label="Map showing Vertexa office in Salt Lake Sector V, Kolkata">
-              <svg viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <!-- Grid roads -->
-                <line x1="0" y1="50" x2="400" y2="50" stroke="#1E385B" stroke-width="2"/>
-                <line x1="0" y1="100" x2="400" y2="100" stroke="#254B7A" stroke-width="4"/>
-                <line x1="0" y1="150" x2="400" y2="150" stroke="#1E385B" stroke-width="2"/>
-                <line x1="80" y1="0" x2="80" y2="200" stroke="#1E385B" stroke-width="2"/>
-                <line x1="220" y1="0" x2="220" y2="200" stroke="#254B7A" stroke-width="4"/>
-                <line x1="330" y1="0" x2="330" y2="200" stroke="#1E385B" stroke-width="2"/>
-                <!-- Sector blocks -->
-                <rect x="90" y="60" width="120" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
-                <rect x="230" y="60" width="90" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
-                <rect x="90" y="110" width="120" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
-                <rect x="230" y="110" width="90" height="30" rx="3" fill="#132A4A" opacity="0.6"/>
-                <!-- Lake contour -->
-                <path d="M0 160 Q120 180 200 150 T400 170 L400 200 L0 200 Z" fill="#0C2545" opacity="0.7"/>
-              </svg>
-              <div class="map-pin">
-                <span class="pin-beacon"></span>
-                <span class="pin-label">Vertexa Digital HQ</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#2FB6A6" stroke="#0B1F3A" stroke-width="1.5">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-              </div>
-            </div>
-            <p style="margin:0.75rem 0 0;font-size:0.8rem;color:#B9C4D4;line-height:1.4;">
-              5 mins from Karunamoyee Metro &bull; Sector V Electronics Complex
-            </p>
           </div>
         </div>
 

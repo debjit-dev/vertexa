@@ -363,6 +363,140 @@
   }
 
   /* ---------------------------------------------------------
+     4b. PROFILE CARDS (about.html founders — About/Experience/
+     Contact tabs). Scoped per-card so each founder's card
+     switches sections independently of the other.
+     --------------------------------------------------------- */
+  function initProfileCards() {
+    document.querySelectorAll(".pcard").forEach((card) => {
+      const buttons = card.querySelectorAll(".pcard-buttons button");
+      const sections = card.querySelectorAll(".pcard-section");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetSection = btn.getAttribute("data-section");
+          const section = card.querySelector(targetSection);
+          if (!section) return;
+          card.classList.toggle("is-active", !targetSection.startsWith("#about"));
+          card.setAttribute("data-state", targetSection);
+          sections.forEach((s) => s.classList.remove("is-active"));
+          buttons.forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          section.classList.add("is-active");
+        });
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     4c. PROFILE CARD TILT (about.html founders — cursor-driven
+     3D tilt, glow, glare and depth parallax, one instance per
+     card so both founder cards animate independently).
+     --------------------------------------------------------- */
+  function initProfileTilt() {
+    const cards = document.querySelectorAll(".pcard");
+    if (!cards.length) return;
+
+    const MAX_TILT = 10;
+    const PARALLAX_STRENGTH = 0.32;
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    cards.forEach((card) => {
+      const glow = card.querySelector(".pcard-glow");
+      const glare = card.querySelector(".pcard-glare");
+      const depthItems = card.querySelectorAll("[data-depth]");
+      if (!glow || !glare) return;
+
+      let targetRotateX = 0;
+      let targetRotateY = 0;
+      let currentRotateX = 0;
+      let currentRotateY = 0;
+      let pointerX = 0;
+      let pointerY = 0;
+      let isHovering = false;
+      let frame = null;
+
+      const updateDepthItems = () => {
+        depthItems.forEach((item) => {
+          const depth = Number.parseFloat(item.dataset.depth) || 0;
+          const moveX = pointerX * depth * PARALLAX_STRENGTH;
+          const moveY = pointerY * depth * PARALLAX_STRENGTH;
+          item.style.transform = `translate3d(${moveX}px, ${moveY}px, ${depth}px)`;
+        });
+      };
+      const resetDepthItems = () => {
+        depthItems.forEach((item) => { item.style.transform = "translate3d(0px, 0px, 0px)"; });
+      };
+      const animate = () => {
+        currentRotateX += (targetRotateX - currentRotateX) * 0.12;
+        currentRotateY += (targetRotateY - currentRotateY) * 0.12;
+        card.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+        if (isHovering || Math.abs(currentRotateX) > 0.01 || Math.abs(currentRotateY) > 0.01) {
+          frame = requestAnimationFrame(animate);
+        } else {
+          currentRotateX = 0;
+          currentRotateY = 0;
+          card.style.transform = "rotateX(0deg) rotateY(0deg)";
+          frame = null;
+        }
+      };
+      const handlePointerMove = (event) => {
+        if (!canHover.matches || reduceMotion.matches) return;
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const normalizedX = clamp((x / rect.width) * 2 - 1, -1, 1);
+        const normalizedY = clamp((y / rect.height) * 2 - 1, -1, 1);
+        pointerX = normalizedX;
+        pointerY = normalizedY;
+        targetRotateX = normalizedY * -MAX_TILT;
+        targetRotateY = normalizedX * MAX_TILT;
+        glow.style.left = `${x}px`;
+        glow.style.top = `${y}px`;
+        const glareX = 50 + normalizedX * 35;
+        const glareY = 50 + normalizedY * 35;
+        glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.22) 0%, rgba(47,182,166,0.1) 30%, transparent 62%)`;
+        updateDepthItems();
+      };
+      const handlePointerEnter = () => {
+        if (!canHover.matches || reduceMotion.matches) return;
+        isHovering = true;
+        glow.style.opacity = "0.9";
+        glare.style.opacity = "0.6";
+        if (!frame) frame = requestAnimationFrame(animate);
+      };
+      const handlePointerLeave = () => {
+        isHovering = false;
+        targetRotateX = 0;
+        targetRotateY = 0;
+        pointerX = 0;
+        pointerY = 0;
+        glow.style.left = "50%";
+        glow.style.top = "50%";
+        glow.style.opacity = "0.5";
+        glare.style.opacity = "0";
+        resetDepthItems();
+        if (!frame) frame = requestAnimationFrame(animate);
+      };
+
+      card.addEventListener("pointerenter", handlePointerEnter);
+      card.addEventListener("pointermove", handlePointerMove);
+      card.addEventListener("pointerleave", handlePointerLeave);
+
+      const handleInputModeChange = () => {
+        if (!canHover.matches || reduceMotion.matches) {
+          handlePointerLeave();
+          card.style.transform = "rotateX(0deg) rotateY(0deg)";
+          resetDepthItems();
+        }
+      };
+      canHover.addEventListener("change", handleInputModeChange);
+      reduceMotion.addEventListener("change", handleInputModeChange);
+    });
+  }
+
+  /* ---------------------------------------------------------
      5. FAQ ACCORDION
      --------------------------------------------------------- */
   function initFaq() {
@@ -377,31 +511,99 @@
 
   /* ---------------------------------------------------------
      6. FORM VALIDATION + SUBMISSION
-     Client-side validation, then fetch() to a form endpoint.
+     Live, per-keystroke validation (not just on blur/submit),
+     then fetch() to a form endpoint on submit.
      No application back end — swap FORM_ENDPOINT for a real
      static-form service (Formspree/Getform) or small
      serverless function URL before going live.
      --------------------------------------------------------- */
   const FORM_ENDPOINT = "https://example.com/api/form-handler"; // TODO: replace with live endpoint
 
-  function validateField(field) {
+  const FIELD_RULES = {
+    "c-name": {
+      required: true,
+      test: (v) => v.trim().length >= 2,
+      requiredMsg: "Please enter your full name.",
+      invalidMsg: "Please enter your full name.",
+      validMsg: "Looks good.",
+    },
+    "c-email": {
+      required: true,
+      test: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+      requiredMsg: "Please enter your email address.",
+      invalidMsg: "Enter a valid email address.",
+      validMsg: "Valid email address.",
+    },
+    "c-phone": {
+      required: false,
+      test: (v) => /^[+]?[\d\s()-]{7,20}$/.test(v.trim()),
+      invalidMsg: "Enter a valid phone number.",
+      validMsg: "Looks good.",
+    },
+    "c-subject": {
+      required: true,
+      test: (v) => v.trim().length >= 3,
+      requiredMsg: "Please add a subject.",
+      invalidMsg: "Add a short subject (min 3 characters).",
+      validMsg: "Looks good.",
+    },
+    "c-message": {
+      required: true,
+      test: (v) => v.trim().length >= 10,
+      requiredMsg: "Please add a short message.",
+      invalidMsg: "Tell us a bit more (min 10 characters).",
+      validMsg: "Great — that's plenty of detail.",
+    },
+  };
+
+  // Validates as the user types/edits; returns true only once a rule's
+  // test passes (or the field is optional and empty).
+  function liveValidateField(field, forceShowEmpty) {
     const input = field.querySelector("input, textarea, select");
     if (!input) return true;
-    let valid = true;
+    const rule = FIELD_RULES[input.id];
+    if (!rule) return true;
 
-    if (input.hasAttribute("required") && !input.value.trim()) valid = false;
-    if (input.type === "email" && input.value.trim()) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!re.test(input.value.trim())) valid = false;
+    const errorEl = field.querySelector(".field-error");
+    const successEl = field.querySelector(".field-success");
+    const value = input.value;
+    const empty = value.trim().length === 0;
+
+    field.classList.remove("has-error", "has-success");
+
+    if (empty) {
+      if (rule.required && (field.dataset.touched === "true" || forceShowEmpty)) {
+        field.classList.add("has-error");
+        if (errorEl) errorEl.textContent = rule.requiredMsg;
+      }
+      return !rule.required;
     }
 
-    field.classList.toggle("has-error", !valid);
+    const valid = rule.test(value);
+    field.classList.add(valid ? "has-success" : "has-error");
+    if (valid && successEl) successEl.textContent = rule.validMsg;
+    else if (!valid && errorEl) errorEl.textContent = rule.invalidMsg;
     return valid;
   }
 
   function initForms() {
     document.querySelectorAll("[data-validate-form]").forEach((form) => {
       const status = form.querySelector(".form-status");
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const btnLabel = submitBtn ? submitBtn.querySelector(".btn-label") : null;
+
+      form.querySelectorAll(".field input, .field textarea, .field select").forEach((input) => {
+        const field = input.closest(".field");
+        // Real-time feedback while typing — not just on blur/submit.
+        input.addEventListener("input", () => {
+          field.dataset.touched = "true";
+          liveValidateField(field);
+        });
+        input.addEventListener("blur", () => {
+          field.dataset.touched = "true";
+          liveValidateField(field);
+        });
+      });
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -411,18 +613,19 @@
         if (honeypot && honeypot.value) return;
 
         const fields = Array.from(form.querySelectorAll(".field"));
-        const allValid = fields.map(validateField).every(Boolean);
+        const allValid = fields.map((f) => liveValidateField(f, true)).every(Boolean);
 
         if (!allValid) {
-          status.textContent = "Please fill in the required fields correctly.";
+          status.textContent = "Please fix the highlighted fields above.";
           status.className = "form-status is-visible error";
+          const firstInvalid = form.querySelector(".field.has-error input, .field.has-error textarea, .field.has-error select");
+          if (firstInvalid) firstInvalid.focus();
           return;
         }
 
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalLabel = submitBtn.textContent;
         submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
+        submitBtn.classList.add("is-loading");
+        if (btnLabel) btnLabel.textContent = "Sending...";
 
         try {
           const data = Object.fromEntries(new FormData(form).entries());
@@ -437,17 +640,15 @@
           status.textContent = "Thanks — your message is in. We'll be in touch within one business day.";
           status.className = "form-status is-visible success";
           form.reset();
+          fields.forEach((f) => { f.classList.remove("has-error", "has-success"); delete f.dataset.touched; });
         } catch (err) {
           status.textContent = "Something went wrong sending that. Please try again or email us directly.";
           status.className = "form-status is-visible error";
         } finally {
           submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel;
+          submitBtn.classList.remove("is-loading");
+          if (btnLabel) btnLabel.textContent = "Send Message";
         }
-      });
-
-      form.querySelectorAll(".field input, .field textarea, .field select").forEach((input) => {
-        input.addEventListener("blur", () => validateField(input.closest(".field")));
       });
     });
   }
@@ -1025,6 +1226,8 @@
     initDeviceParallax();
     initTestimonialOptions();
     initPortfolioFilter();
+    initProfileCards();
+    initProfileTilt();
     initCaseStudyModal();
     initFaq();
     initForms();
