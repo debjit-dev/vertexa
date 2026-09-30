@@ -2,8 +2,8 @@
    VERTEXA DIGITAL AGENCY — main.js
    Vanilla JS (ES6+). No framework, no build step.
    Handles: header/footer injection, sticky nav shrink,
-   mega menu, mobile drawer, scroll-reveal, testimonial
-   carousel (with swipe), portfolio filter, FAQ accordion,
+   mega menu, mobile drawer, scroll-reveal, expanding
+   testimonial panels, portfolio filter, FAQ accordion,
    form validation, scroll-to-top, stat counters.
    ========================================================= */
 
@@ -16,6 +16,7 @@
     RS: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
     SW: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>`,
     HS: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
+    GA: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
   };
 
   /* ---------------------------------------------------------
@@ -33,6 +34,7 @@
         { title: "Website Revamp & SEO",   desc: "Modernize your site. Get found on Google.",  href: "/services/website-revamp-seo.html",     icon: "RS" },
         { title: "Scalable Web Development", desc: "Built to grow with your business.",        href: "/services/scalable-web-development.html", icon: "SW" },
         { title: "Hosting Solutions",      desc: "Fast, secure, available worldwide.",         href: "/services/hosting-solutions.html",       icon: "HS" },
+        { title: "Google Analytics & Traffic Monitoring", desc: "See who visits, from where, in real time.", href: "/services/google-analytics-traffic-monitoring.html", icon: "GA" },
       ],
     },
     { label: "Portfolio", href: "/portfolio.html",  key: "portfolio" },
@@ -196,6 +198,7 @@
               <li><a href="/services/website-revamp-seo.html">Website Revamp &amp; SEO</a></li>
               <li><a href="/services/scalable-web-development.html">Scalable Web Development</a></li>
               <li><a href="/services/hosting-solutions.html">Hosting Solutions</a></li>
+              <li><a href="/services/google-analytics-traffic-monitoring.html">Google Analytics &amp; Traffic Monitoring</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -285,70 +288,52 @@
   }
 
   /* ---------------------------------------------------------
-     3. TESTIMONIAL CAROUSEL (with swipe + prev/next)
+     3. CLIENT FEEDBACK (expanding testimonial panels, auto-advances
+        every 5s — identical timing/behaviour on every device)
      --------------------------------------------------------- */
-  function initCarousel() {
-    const root = document.querySelector("[data-carousel]");
+  function initTestimonialOptions() {
+    const root = document.querySelector("[data-options]");
     if (!root) return;
-    const track = root.querySelector(".carousel-slides");
-    const slides = Array.from(root.querySelectorAll(".slide"));
-    const controls = root.querySelector(".carousel-controls");
-    let index = 0;
+    const options = Array.from(root.querySelectorAll(".option"));
+    let index = Math.max(0, options.findIndex((o) => o.classList.contains("active")));
     let timer;
 
-    /* Prev / Next arrow buttons */
-    const prevBtn = document.createElement("button");
-    prevBtn.className = "carousel-btn";
-    prevBtn.setAttribute("aria-label", "Previous testimonial");
-    prevBtn.innerHTML = `&#8592;`;
-    const nextBtn = document.createElement("button");
-    nextBtn.className = "carousel-btn";
-    nextBtn.setAttribute("aria-label", "Next testimonial");
-    nextBtn.innerHTML = `&#8594;`;
+    // Big screens open a panel on mouse-over instead of requiring a click;
+    // mobile (no real hover) keeps the tap-to-open accordion behaviour.
+    const isBigScreen = () => window.matchMedia("(min-width: 768px)").matches;
 
-    /* Dot buttons */
-    slides.forEach((_, i) => {
-      const dot = document.createElement("button");
-      dot.className = "carousel-dot";
-      dot.setAttribute("aria-label", `Show testimonial ${i + 1}`);
-      dot.setAttribute("aria-current", i === 0 ? "true" : "false");
-      dot.addEventListener("click", () => { goTo(i); stopAuto(); });
-      controls.appendChild(dot);
-    });
-
-    controls.prepend(prevBtn);
-    controls.appendChild(nextBtn);
-
-    function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      track.style.transform = `translateX(-${index * 100}%)`;
-      controls.querySelectorAll(".carousel-dot").forEach((d, di) => {
-        d.setAttribute("aria-current", String(di === index));
+    function activate(i) {
+      index = (i + options.length) % options.length;
+      options.forEach((o, oi) => {
+        const isActive = oi === index;
+        o.classList.toggle("active", isActive);
+        o.setAttribute("aria-pressed", String(isActive));
       });
     }
-    function prev() { goTo(index - 1); }
-    function next() { goTo(index + 1); }
+    function next()      { activate(index + 1); }
+    function startAuto()  { stopAuto(); timer = setInterval(next, 5000); }
+    function stopAuto()   { clearInterval(timer); }
 
-    prevBtn.addEventListener("click", () => { prev(); stopAuto(); });
-    nextBtn.addEventListener("click", () => { next(); stopAuto(); });
+    options.forEach((option, i) => {
+      option.addEventListener("click", () => { activate(i); startAuto(); });
+      option.addEventListener("mouseenter", () => {
+        if (isBigScreen()) { activate(i); stopAuto(); }
+      });
+      option.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate(i);
+          startAuto();
+        }
+      });
+    });
 
-    function startAuto() { timer = setInterval(next, 6000); }
-    function stopAuto()  { clearInterval(timer); }
-
-    root.addEventListener("mouseenter", stopAuto);
+    /* Pause while the user is interacting, resume after */
     root.addEventListener("mouseleave", startAuto);
     root.addEventListener("focusin",    stopAuto);
     root.addEventListener("focusout",   startAuto);
 
-    /* Touch swipe */
-    let touchStartX = 0;
-    track.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener("touchend",   (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); stopAuto(); }
-    }, { passive: true });
-
-    goTo(0);
+    activate(index);
     startAuto();
   }
 
@@ -1038,7 +1023,7 @@
     initReveal();
     initTypedText();
     initDeviceParallax();
-    initCarousel();
+    initTestimonialOptions();
     initPortfolioFilter();
     initCaseStudyModal();
     initFaq();

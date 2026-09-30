@@ -49,21 +49,28 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- 8. Portfolio -->
+  <!-- 8. Google Analytics & Traffic Monitoring -->
+  <url>
+    <loc>https://www.vertexa.agency/services/google-analytics-traffic-monitoring.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- 9. Portfolio -->
   <url>
     <loc>https://www.vertexa.agency/portfolio.html</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- 9. Pricing / Quote -->
+  <!-- 10. Pricing / Quote -->
   <url>
     <loc>https://www.vertexa.agency/pricing.html</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- 10. Contact Us -->
+  <!-- 11. Contact Us -->
   <url>
     <loc>https://www.vertexa.agency/contact.html</loc>
     <lastmod>2026-09-06</lastmod>
